@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using CommandAPI.Data;
 
 namespace CommandAPI
 {
@@ -28,6 +29,9 @@ namespace CommandAPI
         {
 
             services.AddControllers();
+
+            services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CommandAPI", Version = "v1" });
