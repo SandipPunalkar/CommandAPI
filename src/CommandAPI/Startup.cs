@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 using Microsoft.OpenApi.Models;
 using CommandAPI.Data;
 using Npgsql;
@@ -39,6 +40,9 @@ namespace CommandAPI
             services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(builder.ConnectionString));
 
             services.AddControllers();
+
+            //DTO settings
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
 
