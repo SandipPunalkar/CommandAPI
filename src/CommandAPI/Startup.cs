@@ -39,7 +39,10 @@ namespace CommandAPI
             //CN
             services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(builder.ConnectionString));
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(s =>
+            {
+                s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            });
 
             //DTO settings
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
