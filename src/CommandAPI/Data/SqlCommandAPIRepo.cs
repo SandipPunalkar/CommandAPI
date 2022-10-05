@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using CommandAPI.Models;
@@ -23,7 +24,11 @@ namespace CommandAPI.Data
         
         public void CreateCommand(Command cmd)
         {
-            throw new System.NotImplementedException();
+            if(cmd == null)
+            {
+                throw new ArgumentNullException(nameof(cmd));
+            }
+            _context.CommandItems.Add(cmd);
         }
         
         public void UpdateCommand(Command cmd)
@@ -38,7 +43,7 @@ namespace CommandAPI.Data
         
         public bool SaveChanges()
         {
-            throw new System.NotImplementedException();
+            return (_context.SaveChanges() >= 0);
         }
 
        
