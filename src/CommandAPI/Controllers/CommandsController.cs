@@ -75,7 +75,7 @@ namespace CommandAPI.Controllers
             }
             var commandToPatch = _mapper.Map<CommandUpdateDto>(commandModelFromRepo);
             patchDoc.ApplyTo(commandToPatch, ModelState);
-            
+
             if(!TryValidateModel(commandToPatch))
             {
                 return ValidationProblem(ModelState);
@@ -87,6 +87,17 @@ namespace CommandAPI.Controllers
             return NoContent();
         }
     
-        
+        [HttpDelete("{id}")]
+        public ActionResult DeleteCommand(int id)
+        {
+            var commandModelFromRepo = _repository.GetCommandById(id);
+            if(commandModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.DeleteCommand(commandModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }
